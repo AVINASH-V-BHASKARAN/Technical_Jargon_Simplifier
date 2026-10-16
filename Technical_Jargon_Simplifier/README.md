@@ -1,4 +1,4 @@
-﻿# Technical Jargon Simplifier
+# Technical Jargon Simplifier
 
 **Avinash · ASI23CA024**
 
@@ -10,7 +10,7 @@ Use Python 3.10+ and run these commands inside the project folder:
 
 ```powershell
 python -m venv .venv
-.venv/Scripts/python -m pip install -r requirements.txt
+.venv/Scripts/python -m pip install -r requirements-notebook.txt
 .venv/Scripts/python -m notebook
 ```
 
@@ -27,6 +27,16 @@ python app.py
 ```
 
 Open **http://127.0.0.1:8527**. Keep the terminal running. Text is sent only to this local Python process. There are no external API calls, accounts, databases, or stored messages. Stop it with Ctrl+C.
+
+## Deploy to Vercel
+
+This project is configured as a Vercel v2 deployment: `index.html` is served as a static page and `api/index.py` runs the existing Python simplifier as a serverless function. The API exposes `/api/simplify`, `/api/glossary` and `/api/health`.
+
+1. Import the project folder containing `vercel.json`, `index.html`, `simplifier.py` and `api/` into Vercel (or run `vercel` from that folder).
+2. Leave the framework preset as **Other** and use the default build and output settings. No build command, environment variables, database or third-party runtime packages are required.
+3. Deploy, then open the generated URL. Check `<deployment-url>/api/health` for a ready response.
+
+The deployment is stateless. Submitted text is processed by the function and is not stored by this app. Vercel may retain its own operational request metadata according to your account settings.
 
 ## Features and NLP techniques
 
@@ -70,9 +80,11 @@ No deep learning, large language model, training dataset, paid API, cloud servic
 
 - `Technical_Jargon_Simplifier.ipynb`: complete runnable notebook with demonstrations and evaluation.
 - `simplifier.py`: glossary, preprocessing, matching, sentence rules and sample evaluation.
-- `app.py` and `index.html`: minimal optional local Python/browser UI.
+- `app.py` and `index.html`: local Python/browser UI; `index.html` is also the Vercel static frontend.
+- `api/index.py` and `vercel.json`: Vercel serverless API and deployment routing.
 - `test_simplifier.py`: engine tests.
-- `requirements.txt`: Jupyter Notebook for local notebook use; engine/UI have no external dependencies.
+- `requirements.txt`: no third-party runtime dependencies; suitable for Vercel.
+- `requirements-notebook.txt`: Jupyter Notebook for local notebook use.
 - `report/`: template-based course report in Word and PDF.
 
 To edit behavior, update `simplifier.py` and the corresponding notebook cells together. Planned GitHub repository: https://github.com/AVINASH-V-BHASKARAN/Technical_Jargon_Simplifier. Publication is pending; this project is currently kept in a local Git repository.

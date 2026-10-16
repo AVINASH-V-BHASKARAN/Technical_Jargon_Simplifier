@@ -1,3 +1,1 @@
-﻿# Runtime engine and local UI use only the Python standard library.
-# Jupyter Notebook is needed to open and execute the .ipynb locally.
-notebook>=7,<8
+# Vercel API and local UI use only Python standard library.
